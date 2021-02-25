@@ -1,0 +1,10 @@
+.root {
+border: 2px solid;
+}
+
+.title{
+    fontSize: 14,
+}
+.pos{
+    marginBottom: 12,
+}
