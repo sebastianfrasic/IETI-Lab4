@@ -1,5 +1,5 @@
-# Lab # 3 - IETI
-# 1.2 Task Planner Project - Front End
+# Lab # 4 - IETI
+# 1.4 Task Planner Project - Front End - Part 2
 
 
 ### Pre-requisitos 📋
@@ -29,9 +29,7 @@ npm install
 npm start
 ```
 
-### Vista del Login desde un celular
 
-![](public/img/login.jpeg)
 
 3. Para el login las credenciales son las siguientes:
 
