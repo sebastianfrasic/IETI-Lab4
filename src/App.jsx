@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import './App.css';
-import {Login} from './components/Login';
-import {Tasks} from './components/Tasks';
+import { Login } from './components/Login';
+import { Tasks } from './components/Tasks';
 
 const App = () => {
 
@@ -12,17 +12,48 @@ const App = () => {
         email: "juan.frasica@mail.com"
     };
 
+    const items = [{
+        "description": "Do IETI Lab 3",
+        "responsible": {
+            "name": userData.username,
+            "email": userData.email
+        },
+        "status": "In Progress",
+        "dueDate": 156464645645
+    }, {
+        "description": "Do IETI Lab 4",
+        "responsible": {
+            "name": userData.username,
+            "email": userData.email
+        },
+        "status": "Ready",
+        "dueDate": 156475645646
+    }, {
+        "description": "Do Project´s stuff",
+        "responsible": {
+            "name": userData.username,
+            "email": userData.email
+        },
+        "status": "Completed",
+        "dueDate": 158464685646
+    }
+    ];
+
+
+
     localStorage.setItem("Username", userData.username);
     localStorage.setItem("Password", userData.password);
 
     let initialLoggedInState = localStorage.getItem("isLoggedIn");
-    if(initialLoggedInState === "false"){
+    if (initialLoggedInState === "false") {
         initialLoggedInState = false;
-    } else if (initialLoggedInState === "true"){
+    } else if (initialLoggedInState === "true") {
         initialLoggedInState = true;
     }
 
-    const[isLoggedInState,setIsLoggedInState] = useState(initialLoggedInState);
+    const [isLoggedInState, setIsLoggedInState] = useState(initialLoggedInState);
+    const [itemsState, setItemsState] = useState(items);
+
 
     const handleSuccessfullyLogin = (e) => {
         setIsLoggedInState(true);
@@ -42,41 +73,23 @@ const App = () => {
         window.location.href = "/";
     }
 
-    const items = [{
-        "description": "Do IETI Lab 3",
-        "responsible": {
-            "name": userData.username,
-            "email": userData.email
-        },
-        "status": "In Progress",
-        "dueDate": 156464645645
-    },{
-        "description": "Do IETI Lab 4",
-        "responsible": {
-            "name": userData.username,
-            "email": userData.email
-        },
-        "status": "Ready",
-        "dueDate": 156475645646
-    },{
-        "description": "Do Project´s stuff",
-        "responsible": {
-            "name": userData.username,
-            "email": userData.email
-        },
-        "status": "Completed",
-        "dueDate": 158464685646}
-    ];
+    const handleAddNewTask = (newItem) => {
+        const newItems = [...itemsState, newItem];
+        setItemsState(newItems);
+    }
 
-    const LoginView = () => (<Login successfully={handleSuccessfullyLogin} failed={handleFailedLogin}/>);
-    const MainView = () => (<Tasks items={items} logout={handleLogout} email={userData.email} name={userData.username}/>);
-    const View = isLoggedInState ? MainView : LoginView ;
+ 
+
+    
+
+    const LoginView = () => (<Login successful={handleSuccessfullyLogin} failed={handleFailedLogin}/>);
+    const MainView = () => (<Tasks items={itemsState} logout={handleLogout}  addTask={handleAddNewTask} userData={userData}/>);
 
     return (
         <Router>
             <div className="App">
-                <Route exact path="/" component={View}/>
-                <Route path="/home" component={View}/>
+                <Route exact path="/" component={isLoggedInState ? MainView : LoginView} />
+                <Route path="/home" component={isLoggedInState ? MainView : LoginView} />
             </div>
         </Router>
     );
