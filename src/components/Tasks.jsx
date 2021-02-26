@@ -1,12 +1,13 @@
 import React from 'react';
 import {Task} from './Task';
 import {MyDrawer} from "./MyDrawer";
+import {NewTask} from './NewTask';
 
 export const Tasks = (props) => {
 
     return (
         <div>
-            <MyDrawer logout={props.logout} email={props.email}/>
+            <MyDrawer logout={props.logout} userData={props.userData}/>
             {props.items.map((item,i) => {
                 return (<Task key={i}
                               description={item.description}
@@ -15,6 +16,7 @@ export const Tasks = (props) => {
                               dueDate={item.dueDate}/>
                 );
             })}
+            <NewTask email={props.userData.username} addTask={props.addTask}/>
         </div>
     );
 }
