@@ -123,14 +123,14 @@ export const NewTask = (props) => {
                                 onChange={handleStatusChange}
                             >
                                 <MenuItem value={"Ready"}>Ready</MenuItem>
-                                <MenuItem value={"In Progress"}>In Progress</MenuItem>
+                                <MenuItem value={"In progress"}>In progress</MenuItem>
                                 <MenuItem value={"Done"}>Done</MenuItem>
                             </Select>
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
-                            <LocalizationProvider dateAdapter={AdapterDateFns}>
-                                <DatePicker
-                                    label="Basic example"
+                            <LocalizationProvider required dateAdapter={AdapterDateFns}>
+                                <DatePicker required
+                                    label="Due date"
                                     value={dueDateState}
                                     onChange={handleDueDateChange}
                                     renderInput={(params) => <TextField {...params} />}
