@@ -14,7 +14,7 @@
 1. Clonar el repositorio
 
 ```
-git clone https://github.com/sebastianfrasic/IETI-Lab3.git
+git clone https://github.com/sebastianfrasic/IETI-Lab4.git
 ```
 
 
@@ -33,7 +33,7 @@ npm start
 
 3. Para el login las credenciales son las siguientes:
 
-**Username:** sebastian
+**Username:** Sebastian
 **Password:** 1234
 
 
