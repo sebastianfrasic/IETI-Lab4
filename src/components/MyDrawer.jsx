@@ -15,10 +15,7 @@ import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 export const MyDrawer = (props) => {
 
     const [state, setState] = React.useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
+        left: false
     });
 
     const toggleDrawer = (anchor, open) => (event) => {
@@ -26,7 +23,11 @@ export const MyDrawer = (props) => {
             return;
         }
 
-        setState({...state, [anchor]: open});
+        setState({ ...state, [anchor]: open });
+    };
+
+    const handleUserProfileView = () => {
+        window.location.href = "/registration";
     };
 
     const list = (anchor) => (
@@ -39,29 +40,40 @@ export const MyDrawer = (props) => {
             <List>
                 <ListItem button>
                     <ListItemIcon>
-                        <PersonOutlineTwoToneIcon style={{fontSize: 50}}/>
+                        <PersonOutlineTwoToneIcon style={{ fontSize: 50 }} />
                     </ListItemIcon>
                     <ListItemText
-                        primary="Juan Sebastián Frásica"
+                        primary={props.userData.username}
                         secondary={
                             <div>
                                 <Typography
                                     component="span"
                                     variant="body2"
                                     color="textPrimary"
-                                >{props.email}
+                                >{props.userData.email}
                                 </Typography>
                             </div>
-                        }/> <EditTwoToneIcon className="edit"  style={{fontSize: 50}}/>
+                        } />
+
                 </ListItem>
+                <List>
+                        <ListItem  onClick={handleUserProfileView} button>
+                            <ListItemIcon>
+                                <EditTwoToneIcon style={{ fontSize: 50 }} />
+                            </ListItemIcon>
+                            <ListItemText
+                        primary="Edit profile"
+                    />
+                        </ListItem>
+                    </List>
             </List>
 
 
-            <Divider/>
+            <Divider />
             <List>
                 <ListItem className="exit" onClick={props.logout} button>
                     <ListItemIcon>
-                        <ExitToAppTwoToneIcon style={{fontSize: 50}}/>
+                        <ExitToAppTwoToneIcon style={{ fontSize: 50 }} />
                     </ListItemIcon>
                     <ListItemText
                         primary="Log Out"

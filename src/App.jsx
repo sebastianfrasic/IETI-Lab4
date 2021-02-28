@@ -3,14 +3,24 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import { Login } from './components/Login';
 import { Tasks } from './components/Tasks';
+import { UserProfile } from './components/UserProfile';
 
 const App = () => {
 
-    const userData = {
+    let userData = {
         username: "Sebastian",
         password: "12345",
         email: "juan.frasica@mail.com"
     };
+
+
+    function setLocalStorage() {
+        localStorage.setItem('username', userData.username);
+        localStorage.setItem('password', userData.password);
+        localStorage.setItem('email', userData.email);
+    }
+
+
 
     const items = [{
         "description": "Do IETI Lab 3",
@@ -39,10 +49,7 @@ const App = () => {
     }
     ];
 
-
-
-    localStorage.setItem("Username", userData.username);
-    localStorage.setItem("Password", userData.password);
+    setLocalStorage();
 
     let initialLoggedInState = localStorage.getItem("isLoggedIn");
     if (initialLoggedInState === "false") {
@@ -62,7 +69,7 @@ const App = () => {
     }
 
     const handleFailedLogin = (e) => {
-        alert("Usuario o Clave Incorrectos");
+        alert("Incorrect username or password");
         setIsLoggedInState(false);
         localStorage.setItem("isLoggedIn", false);
     }
@@ -78,18 +85,30 @@ const App = () => {
         setItemsState(newItems);
     }
 
- 
+    const handleUpdateProfile = (newUserName, newPassword) => {
+        const newUserData = {
+            username: newUserName,
+            password: newPassword,
+            email: userData.email
+        };
+        userData = newUserData;
+        console.log(userData);
+        setLocalStorage();
+    };
 
-    
 
-    const LoginView = () => (<Login successful={handleSuccessfullyLogin} failed={handleFailedLogin}/>);
-    const MainView = () => (<Tasks items={itemsState} logout={handleLogout}  addTask={handleAddNewTask} userData={userData}/>);
+
+    const LoginView = () => (<Login successfully={handleSuccessfullyLogin} failed={handleFailedLogin} />);
+    const MainView = () => (<Tasks items={itemsState} logout={handleLogout} addTask={handleAddNewTask} userData={userData} />);
+    const UserView = () => (<UserProfile userData={userData} updateUserData={handleUpdateProfile}
+    />);
 
     return (
         <Router>
             <div className="App">
                 <Route exact path="/" component={isLoggedInState ? MainView : LoginView} />
                 <Route path="/home" component={isLoggedInState ? MainView : LoginView} />
+                <Route path="/registration" component={isLoggedInState ? UserView : LoginView} />
             </div>
         </Router>
     );

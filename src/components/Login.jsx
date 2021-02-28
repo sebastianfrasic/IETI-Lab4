@@ -25,7 +25,10 @@ export const Login = (props) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        if (usernameState === localStorage.getItem("Username") && passwordState === localStorage.getItem("Password")) {
+        console.log(usernameState)
+        console.log(localStorage.getItem("username"))
+        //localStorage.clear();
+        if (usernameState === localStorage.getItem("username") && passwordState === localStorage.getItem("password")) {
             props.successfully();
         } else {
             props.failed();
