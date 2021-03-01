@@ -2,6 +2,8 @@
 # 1.4 Task Planner Project - Front End - Part 2
 
 
+[![Deployed to Heroku](https://www.herokucdn.com/deploy/button.png)](https://frasica-ieti-lab4.herokuapp.com/)
+
 ### Pre-requisitos 📋
 
 * NodeJS
@@ -34,7 +36,7 @@ npm start
 3. Para el login las credenciales son las siguientes:
 
 **Username:** Sebastian
-**Password:** 1234
+**Password:** 12345
 
 
 
