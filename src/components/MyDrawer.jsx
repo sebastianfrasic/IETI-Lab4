@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -11,12 +11,23 @@ import Typography from '@material-ui/core/Typography';
 import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import ExitToAppTwoToneIcon from '@material-ui/icons/ExitToAppTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
+import { TaskFilter } from './TaskFilter';
 
 export const MyDrawer = (props) => {
 
     const [state, setState] = React.useState({
         left: false
     });
+
+    const [openModalState, setOpenModalState] = useState(false);
+
+    const handleOpenModal = () => {
+        setOpenModalState(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModalState(false);
+    };
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -57,15 +68,15 @@ export const MyDrawer = (props) => {
 
                 </ListItem>
                 <List>
-                        <ListItem  onClick={handleUserProfileView} button>
-                            <ListItemIcon>
-                                <EditTwoToneIcon style={{ fontSize: 50 }} />
-                            </ListItemIcon>
-                            <ListItemText
-                        primary="Edit profile"
-                    />
-                        </ListItem>
-                    </List>
+                    <ListItem onClick={handleUserProfileView} button>
+                        <ListItemIcon>
+                            <EditTwoToneIcon style={{ fontSize: 50 }} />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary="Edit profile"
+                        />
+                    </ListItem>
+                </List>
             </List>
 
 
@@ -85,7 +96,13 @@ export const MyDrawer = (props) => {
 
     return (
         <div>
-            <Button onClick={toggleDrawer("left", true)}>Menu</Button>
+            <div>
+                <Button onClick={toggleDrawer("left", true)}>Menu</Button>
+                <Button onClick={handleOpenModal}>
+                    Filters
+                </Button>
+                <TaskFilter open={openModalState} closeAction={handleCloseModal} applyFilters={props.applyFilters} />
+            </div>
             <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
                 {list("left")}
             </Drawer>
